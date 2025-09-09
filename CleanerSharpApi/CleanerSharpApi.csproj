@@ -1,9 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
+    <Title>Cleaner Sharp Api</Title>
+    <PackageIcon>logo.png</PackageIcon>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageId>CleanerSharpApi</PackageId>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Mohammad Ayaad</Authors>
+    <Owners>Mohammad Ayaad</Owners>
+    <Description>A library providing a base for writing and implementing Cleaner Apis</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/MohammadAyaad/CleanerSharpApi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MohammadAyaad/CleanerSharpApi</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>c#;api;clean;repository;service;endpoint;controller;</PackageTags>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+    <None Include="../LICENSE" Pack="true" PackagePath="/" />
+    <None Include="../logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpCrud" Version="1.0.0" />
+  </ItemGroup>
 </Project>

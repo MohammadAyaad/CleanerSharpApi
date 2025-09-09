@@ -1,4 +1,4 @@
-using CleanerSharpApi.Crud;
+using SharpCrud.Crud;
 
 namespace CleanerSharpApi.Repository;
 

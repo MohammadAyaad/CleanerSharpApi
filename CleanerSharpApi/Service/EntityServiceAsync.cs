@@ -43,41 +43,47 @@ public class EntityServiceAsync<
         >
 {
     private readonly TRepository _repository;
-    private readonly TOperationDecisionService _operationDecisionService;
+    private readonly ICollection<TOperationDecisionService> _operationDecisionService;
+
+    public EntityServiceAsync(TRepository repository)
+    {
+        this._repository = repository;
+        this._operationDecisionService = new List<TOperationDecisionService>();
+    }
 
     public EntityServiceAsync(
         TRepository repository,
-        TOperationDecisionService operationDecitionService
+        List<TOperationDecisionService> operationDecitionServices
     )
     {
         this._repository = repository;
-        this._operationDecisionService = operationDecitionService;
+        this._operationDecisionService = operationDecitionServices;
     }
 
     public async Task<TCreateResult> CreateAsync(TCreateInput input)
     {
-        if (!this._operationDecisionService.Create(input))
+        if (this._operationDecisionService.Any(x => !x.Create(input)))
             throw new OperationDeniedException();
         return await this._repository.CreateAsync(input);
     }
 
     public async Task<TReadResult?> ReadAsync(TReadQuery query)
     {
-        if (!this._operationDecisionService.Read(query))
+        if (this._operationDecisionService.Any(x => !x.Read(query)))
             throw new OperationDeniedException();
         return await this._repository.ReadAsync(query);
     }
 
     public async Task<TUpdateResult> UpdateAsync(TUpdateQuery query, TUpdateInput input)
     {
-        if (!this._operationDecisionService.Update(query, input))
+        if (this._operationDecisionService.Any(x => !x.Update(query, input)))
             throw new OperationDeniedException();
         return await this._repository.UpdateAsync(query, input);
     }
 
     public async Task DeleteAsync(TDeleteQuery query)
     {
-        if (!this._operationDecisionService.Delete(query))
+        if (this._operationDecisionService.Any(x => !x.Delete(query)))
             throw new OperationDeniedException();
         await this._repository.DeleteAsync(query);
     }
